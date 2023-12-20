@@ -25,8 +25,8 @@
 </head>
 <style>
     .disabled-product {
-        opacity: 0.5; 
-        pointer-events: none; 
+        opacity: 0.5;
+        pointer-events: none;
     }
 
     .message-container {
@@ -75,7 +75,7 @@ if($value != null){
     <div id="preloder">
         <div class="loader"></div>
     </div>
-  
+
 
     <!-- Offcanvas Menu Begin -->
     <div class="offcanvas-menu-overlay"></div>
@@ -129,8 +129,6 @@ if($value != null){
                                 @endif
                                 @if(isset($value))
                                 <a href="#"data-toggle="modal" data-target="#inquiry_model">Inquiry</a>
-                                @else
-                                ''
                                 @endif
                             </div>
                             <div class="header__top__hover">
@@ -187,7 +185,7 @@ if($value != null){
         </div>
     </header>
     <!-- Header Section End -->
- 
+
     <!-- Breadcrumb Section Begin -->
     <section class="breadcrumb-option">
         <div class="container">
@@ -353,7 +351,6 @@ if($value != null){
                         </div>
                     </div>
                 </div>
-                
                 <div class="col-lg-9">
                     <div class="shop__product__option">
                         <div class="row">
@@ -388,7 +385,7 @@ if($value != null){
                                 </div>
                                 <div class="product__item__text">
                                     <h6>{{$value->name}}</h6>
-                                    <!-- {{url('/add_cart/'.$value->id)}} -->
+                                   {{-- {{url('/add_cart/'.$value->id)}} --}}
                                     <a href="#" class="add-cart"  data-product-id="{{$value->id}}">+ Add To Cart</a>
                                     <div class="rating">
                                         <i class="fa fa-star-o"></i>
@@ -399,7 +396,7 @@ if($value != null){
                                     </div>
                                     <div style="display: flex;">
                                     <p style="font-size: larger;font-weight: 700;color: #0d0d0d;"> $<span class="pprice" style="margin-left: 6px;" >{{$value->price}}</span></p>
-                                     <img src="{{asset('malefashion/img/icon/tick.png')}}" id="added_to_cart" class="d-none" style="max-width: 16%;margin-left: 115px;">   
+                                     {{-- <img src="{{asset('malefashion/img/icon/tick.png')}}" id="added_to_cart" class="d-none" style="max-width: 16%;margin-left: 115px;"> --}}
                                     </div>
                                     <div class="product__color__select" style="position: relative;">
                                         <label for="pc-4">
@@ -413,7 +410,7 @@ if($value != null){
                                         </label>
                                     </div>
                                 </div>
-                            </div>                            
+                            </div>
                                 @if($value->status == 0)
                                     <p style="color: red; font-weight: 700; text-align: center;">This Product Is Currently Not Available</p>
                                 @endif
@@ -470,12 +467,12 @@ if($value != null){
                     <div class="modal-body">
                         <div class="col-lg-12">
                             <div class="col-lg-6">
-                            <select name="resoponse_type" id="resoponse_type"onchange="handleResponseTypeChange(this.value)"> 
-                                <option value="" selected disabled> Select A Preffered Response Type</option>
-                            @foreach($response as $res)
-                                <option value="{{$res->id}}">Preffered Response Type:{{$res->response_medium}}</option>
-                            @endforeach
-                            </select>
+                                <select name="resoponse_type" id="resoponse_type"onchange="handleResponseTypeChange(this.value)">
+                                    <option value="" selected disabled> Select A Preffered Response Type</option>
+                                @foreach($response as $res)
+                                    <option value="{{$res->id}}">Preffered Response Type:{{$res->response_medium}}</option>
+                                @endforeach
+                                </select>
                             </div>
                             <div id="inputFieldsContainer" class="col-lg-6"></div>
                         </div>
@@ -577,7 +574,7 @@ if($value != null){
     <script src="{{asset('malefashion/js/mixitup.min.js')}}"></script>
     <script src="{{asset('malefashion/js/owl.carousel.min.j')}}s"></script>
     <script src="{{asset('malefashion/js/main.js')}}"></script>
-   
+
 </body>
 <script>
     document.addEventListener("DOMContentLoaded", function() {
@@ -664,11 +661,9 @@ if($value != null){
                 url: 'add_wishlist',
                 data: { productId: productId ,_token: '{{ csrf_token() }}' },
                 success: function(response) {
-                  
                     console.log('Product added to wishlist successfully');
                 },
                 error: function(error) {
-                    
                     console.error('Error adding product to wishlist', error);
                 }
             });
@@ -678,7 +673,6 @@ if($value != null){
     function sendMessage() {
        var messageInput = document.getElementById('message-input');
        var message = messageInput.value;
-
        $.ajax({
             url:'/sendmessage',
             method:'POST',
@@ -722,7 +716,7 @@ if($value != null){
 
           $.ajax({
             type: 'POST',
-            url: '/inquiry', 
+            url: '/inquiry',
             data: {data:data ,_token: '{{ csrf_token() }}' },
             success: function(response) {
                 $('#inquiry_model').modal('hide');
@@ -743,7 +737,8 @@ if($value != null){
                 type: 'POST',
                 data: { productId: productId, _token: '{{ csrf_token() }}' },
                 success: function (response) {
-                    console.log(response);               
+                    console.log(response);
+                    alert(response);
                     $(this).addClass('added-to-cart');
                     $('#added_to_cart').removeClass('d-none');
                 },

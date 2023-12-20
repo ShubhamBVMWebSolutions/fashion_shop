@@ -19,21 +19,21 @@ class shopController extends Controller
     public function index()
     {
     $product= new product;
-    $cart = new Cart;  
+    $cart = new Cart;
     $allSessionData = Session::all();
         if (isset($allSessionData['user_id'])) {
             $user_id = $allSessionData['user_id'];
             $products=$cart->getAllProductIdsBYUser_id($user_id);
-            return view('index',compact('products'));   
-    
+            return view('index',compact('products'));
+
         }
-        return view('index');    
+        return view('index');
     }
 
     public function shop()
     {
         $product= new product;
-        $cart = new Cart;  
+        $cart = new Cart;
         $product_data=$product->all();
         $allSessionData = Session::all();
         $response= Response::all();
@@ -78,7 +78,7 @@ class shopController extends Controller
     {
         $value = Session::get('username');
         if(!isset($value)){
-            Session::flash('alert', 'Login Or Register First');
+            //Session::flash('alert', 'Login Or Register First');
             return redirect()->route('login');
         }else{
             $allSessionData = Session::all();
@@ -88,7 +88,7 @@ class shopController extends Controller
             $cart->user_id=$user_id;
             $cart->product_id= $product_id;
             $cart->save();
-            return response()->json();      
+            return response()->json('Product Is Being Added To The Cart');
         }
     }
 
@@ -122,7 +122,7 @@ class shopController extends Controller
         }
     }
 
-    
+
     public function wishlist()
     {
         $wishlist = new Wishlist;
@@ -161,7 +161,7 @@ class shopController extends Controller
                  $inquiry= new Inquiry;
                  $users = new User;
                  $user_data = $users->getUserData();
-                 $inquiry_details =$inquiry->getInquaryDetails(); 
+                 $inquiry_details =$inquiry->getInquaryDetails();
                  return view('admin.dashboard',compact('user_data','inquiry_details'));
             }else{
                 return redirect()->route('shop');
@@ -179,7 +179,7 @@ class shopController extends Controller
 
     public function add_products()
     {
-     return view('admin.add_product');   
+     return view('admin.add_product');
     }
 
     public function addNewProduct(Request $request)
@@ -221,7 +221,7 @@ class shopController extends Controller
         $product =product::find($id);
         if (!$product) {
             return response()->json(['error' => 'Product not found'], 404);
-        }   
+        }
         if ($status==1) {
             $product->status = 0 ;
         } else {
