@@ -29,7 +29,7 @@ class loginController extends Controller
             Session::put(['user_id'=>$user_id,'username' =>$username, 'email' => $email]);
          return redirect()->route('shop');
       }
-        // return redirect()->back(); 
+        // return redirect()->back();
     }
     public function user_login(Request $request){
         $request->validate([
@@ -43,14 +43,14 @@ class loginController extends Controller
     if($user == null){
       return redirect()->back()->with('error', 'please check the email.');
     }
-    else{   
+    else{
         $hashed_pass = $user->password;
         $user_id=$user->id;
         $username = $user->name;
         $email = $user->email;
         $role_id= $user->role_id;
     // dd($role_id);
-      
+
         if (Hash::check($password, $hashed_pass)) {
           // Session::put('username', $username);
           Session::put(['user_id'=>$user_id,'username' =>$username, 'email' => $email,'role_id'=>$role_id]);
@@ -59,14 +59,14 @@ class loginController extends Controller
             return redirect()->route('adminDashboard');
           } else {
             return redirect()->route('shop');
-              
+
           }
-          
+
           // return view('shop');
        }else{
           return redirect()->back()->with('error','Password Or Email-Address is not correct.');
         }
-    
+
     }
 }
 
